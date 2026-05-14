@@ -100,19 +100,18 @@ def main():
     demo_dir = os.path.join(base_dir, 'demo')
     os.makedirs(demo_dir, exist_ok=True)
 
+    # 儲存 SVM 模型 (原本最好的模型)
+    svm_model_path = os.path.join(demo_dir, 'rps_svm_model.pkl')
+    joblib.dump(svm_model, svm_model_path)
+    print(f"✅ SVM model saved to: {svm_model_path}")
+
     # 儲存隨機森林模型
     rf_model_path = os.path.join(demo_dir, 'rps_rf_model.pkl')
     joblib.dump(rf_model, rf_model_path)
     print(f"✅ Random Forest model saved to: {rf_model_path}")
 
-    # 儲存最佳模型 (原有的邏輯)
-    best = results_svm if results_svm['acc'] >= results_rf['acc'] else results_rf
-    print(f"\n  🥇 Best Model: {best['name']} (Accuracy: {best['acc']:.4f})")
-    
-    model_save_path = os.path.join(demo_dir, 'best_landmark_model.pkl')
-    joblib.dump(best['model'], model_save_path)
-    print(f"✅ Best model saved to: {model_save_path}")
-    print("   → Use this model with carema_landmark.py for real-time demo.")
+    print("\n   → Use carema_svm.py for SVM demo.")
+    print("   → Use carema_rf.py for Random Forest demo.")
 
 
 if __name__ == "__main__":
